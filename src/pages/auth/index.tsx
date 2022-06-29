@@ -12,6 +12,8 @@ export const AuthPage = () => {
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
 
+    console.log(`User: ${user}`);
+
     const [ pokemon, setPokemon ] = useState<any>(null);
 
     const fetchPokemonHome = async () => {
