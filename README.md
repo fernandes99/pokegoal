@@ -9,6 +9,7 @@
 7. WIP....
 
 ### Estrutura Inicial da API PokeGoal:
+```
 [
     players: [
         id(any number): {
@@ -26,3 +27,4 @@
 
     pokedex: { (getPokeApi) }
 ]
+```
