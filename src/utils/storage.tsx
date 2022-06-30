@@ -1,6 +1,6 @@
 import { isJsonString } from "./general";
 
-export const cache = {
+export const storage = {
     set: (key: any, value: any, ttl?: number) => {
         if (typeof value === 'object') value = JSON.stringify(value);
         localStorage.setItem(key, value);

@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { requests } from "../../utils/requests";
-import { cache } from "../../utils/cache";
+import { storage } from "../../utils/storage";
 
 import { Container, Spinner } from "../../components/general"
 import { Box, Title, Text, Input, Button, Form } from "./styles"
 import { RootState } from "../../store";
 import { setUserName } from "../../store/reducers/user";
+import { setLoading } from "../../store/reducers/global";
 
 export const AuthPage = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
     const [ pokemon, setPokemon ] = useState<any>(null);
@@ -25,9 +28,13 @@ export const AuthPage = () => {
     }
 
     const handleAuth = (event: any) => {
+        dispatch(setLoading(true));
         event.preventDefault();
+
         if (!user.name) return alert('Insira um nome');
-        cache.set('user', user);
+
+        storage.set('user', user);
+        navigate('/');
     }
 
     useEffect(() => {

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Loading } from "./components/loading";
 import { AuthPage } from "./pages/auth";
 import { RootState } from "./store";
+import { HomePage } from "./pages/home";
 
 function App() {
   const global = useSelector((state: RootState) => state.global);
@@ -12,7 +13,8 @@ function App() {
     <>
       <Router>
         <Routes>
-            <Route path='/' element={<AuthPage />} />
+            <Route path='/' element={<HomePage />} />
+            <Route path='/entrar' element={<AuthPage />} />
         </Routes>
       </Router>
 
