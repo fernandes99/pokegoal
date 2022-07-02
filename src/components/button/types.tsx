@@ -4,6 +4,11 @@ export type PrimaryButtonType = {
     type?: string
 };
 
+export type DefaultButtonType = {
+    text: string;
+}
+
 export type ButtonType = {
     Primary: React.FC<PrimaryButtonType>,
+    Default: React.FC<DefaultButtonType>
 }

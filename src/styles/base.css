@@ -4,11 +4,13 @@
     --blue: #3C90F5;
     --blue-lighter: #E6F2FE;
 
-    --black: #1A1822;
-    --gray-darker: #6A6A6A;
+    --gray-darker: #1A1822;
+    --gray-dark: #6A6A6A;
     --gray: #86898C;
     --gray-light: #EEF0F2;
     --gray-lighter: #F9FAFE;
+
+    --black: #0A0A0B;
     --white: #FFFFFF;
 
     --z1: 1;
