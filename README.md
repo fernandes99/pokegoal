@@ -1,4 +1,7 @@
 ## Ideia inicial:
+
+https://pokegoal.netlify.app/
+
 ### Steps:
 1. Ao abrir o app haverá um input onde colocará um nome para sua conta;
 2. Depois que colocar o nome, receberá 10 pokebolas vinculados a essa "conta" (id + nome);
