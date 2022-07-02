@@ -1,3 +1,9 @@
+import { Container } from "../../components/general"
+
 export const ExplorePage = () => {
-    return(<></>)
+    return(
+        <Container>
+            
+        </Container>
+    )
 }

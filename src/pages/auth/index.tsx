@@ -7,10 +7,11 @@ import { storage } from "../../utils/storage";
 import { getRandomValue } from "../../utils/general";
 
 import { Container, Spinner } from "../../components/general"
-import { Box, Title, Text, Input, Button, Form } from "./styles"
+import { Box, Title, Text, Input, Form } from "./styles"
 import { RootState } from "../../store";
 import { setUserId, setUserName, setUserPokeballs } from "../../store/reducers/user";
 import { setLoading } from "../../store/reducers/global";
+import { Button } from "../../components/button";
 
 export const AuthPage = () => {
     const navigate = useNavigate();
@@ -64,7 +65,7 @@ export const AuthPage = () => {
                     <Text>Bem vindo ao</Text>
                     <Title>Poke<strong>Goal</strong></Title>
                     <Input placeholder="Insira seu nome" onChange={(e) => dispatch(setUserName(e.target.value))} />
-                    <Button type="submit">Jogar</Button>
+                    <Button.Primary text='Jogar' />
                 </Form>
             </Box>
         </Container>
