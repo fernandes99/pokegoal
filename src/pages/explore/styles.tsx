@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 
 export const Box = styled.div`
-    
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+`
+
+export const Content = styled.div`
+    margin-top: auto;
 `
 
 export const Title = styled.h2`
@@ -9,13 +15,13 @@ export const Title = styled.h2`
     color: var(--gray-darker);
     font-weight: bold;
 
-    b {
+    strong {
         color: ${props => props.color};
     }
     
 `
 
-export const Subtitle = styled.div`
+export const Text = styled.p`
     
 `
 
