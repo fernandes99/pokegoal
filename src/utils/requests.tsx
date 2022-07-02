@@ -18,6 +18,11 @@ export const requests = {
                 }));
 
             return pkmRandom;
+        },
+
+        specie: async (name: String) => {
+            return await fetch(`${configs.urls.pokeApi}/pokemon-species/${name}`, { mode: 'cors' })
+                    .then(res => res.json());
         }
-    }
+    },
 }

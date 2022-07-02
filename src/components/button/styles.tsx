@@ -7,7 +7,12 @@ export const PrimaryButton = styled.button`
     color: var(--white);
     font-size: 18px;
     font-weight: bold;
-    margin-top: 8px;
+    transition: all .3s;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.03);
+    }
 `
 
 export const DefaultButton = styled.button`
@@ -17,5 +22,10 @@ export const DefaultButton = styled.button`
     color: var(--gray-dark);
     font-size: 18px;
     font-weight: bold;
-    margin-top: 8px;
+    transition: all .3s;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.03);
+    }
 `

@@ -25,7 +25,7 @@ export const HomePage = () => {
     useEffect(() => {
         getUser();
         dispatch(setLoading(false));
-    }, []); // eslint-disable-line
+    }, []);
 
     return (
         <>

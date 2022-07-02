@@ -26,5 +26,8 @@ export const Text = styled.p`
 `
 
 export const Actions = styled.div`
-
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 16px;
 `
