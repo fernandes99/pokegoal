@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 import { requests } from "../../utils/requests";
 import { storage } from "../../utils/storage";
+import { getRandomValue } from "../../utils/general";
 
 import { Container, Spinner } from "../../components/general"
 import { Box, Title, Text, Input, Button, Form } from "./styles"
 import { RootState } from "../../store";
-import { setUserName } from "../../store/reducers/user";
+import { setUserId, setUserName, setUserPokeballs } from "../../store/reducers/user";
 import { setLoading } from "../../store/reducers/global";
 
 export const AuthPage = () => {
@@ -33,12 +34,17 @@ export const AuthPage = () => {
 
         if (!user.name) return alert('Insira um nome');
 
+        const id = getRandomValue();
+        
+        dispatch(setUserId(id));
+        dispatch(setUserPokeballs(10));
         storage.set('user', user);
         navigate('/');
     }
 
     useEffect(() => {
         fetchPokemonHome();
+        dispatch(setLoading(false));
     }, []);
 
     return (

@@ -5,6 +5,7 @@ import { Loading } from "./components/loading";
 import { AuthPage } from "./pages/auth";
 import { RootState } from "./store";
 import { HomePage } from "./pages/home";
+import { ExplorePage } from "./pages/explore";
 
 function App() {
   const global = useSelector((state: RootState) => state.global);
@@ -15,6 +16,7 @@ function App() {
         <Routes>
             <Route path='/' element={<HomePage />} />
             <Route path='/entrar' element={<AuthPage />} />
+            <Route path='/explorar' element={<ExplorePage />} />
         </Routes>
       </Router>
 

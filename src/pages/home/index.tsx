@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Container } from "../../components/general";
 import { RootState } from "../../store";
+import { setLoading } from "../../store/reducers/global";
 import { setUserName } from "../../store/reducers/user";
 
 import { storage } from "../../utils/storage"
@@ -23,6 +24,7 @@ export const HomePage = () => {
 
     useEffect(() => {
         getUser();
+        dispatch(setLoading(false));
     }, []); // eslint-disable-line
 
     return (
