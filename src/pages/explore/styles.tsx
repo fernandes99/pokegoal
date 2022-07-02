@@ -31,3 +31,16 @@ export const Actions = styled.div`
     gap: 8px;
     margin-top: 16px;
 `
+
+export const ExploringBox = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    margin: auto;
+
+    h2 {
+        font-size: 24px;
+    }
+`
