@@ -63,6 +63,7 @@ export const Input = styled.input`
     height: 48px;
     width: 100%;
     transition: all .2s;
+    margin-bottom: 8px;
 
     &:focus {
         border-color: var(--blue);

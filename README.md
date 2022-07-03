@@ -31,3 +31,6 @@ https://pokegoal.netlify.app/
     pokedex: { (getPokeApi) }
 ]
 ```
+
+### Técnologias e Conceitos:
+React, Typescript, Webhook, Styled Components, Redux, React-Router

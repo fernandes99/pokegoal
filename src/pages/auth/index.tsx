@@ -2,6 +2,9 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
 import { requests } from "../../utils/requests";
 import { storage } from "../../utils/storage";
 import { getRandomValue } from "../../utils/general";
@@ -18,6 +21,15 @@ export const AuthPage = () => {
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
     const [ pokemon, setPokemon ] = useState<any>(null);
+    const toastOptions: any = {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    };
 
     const fetchPokemonHome = async () => {
         let random = await requests.get.pokemon();
@@ -33,12 +45,20 @@ export const AuthPage = () => {
         dispatch(setLoading(true));
         event.preventDefault();
 
-        if (!user.name) return alert('Insira um nome');
+        if (!user.name) {
+            const input = document.querySelector('input') as any;
+            
+            input.focus();
+            dispatch(setLoading(false));
+            
+            return toast.info(`Por favor, insira um nome`, toastOptions);
+        }
 
         const id = getRandomValue();
         
         dispatch(setUserId(id));
         dispatch(setUserPokeballs(10));
+
         storage.set('user', user);
         navigate('/');
     }
@@ -68,6 +88,7 @@ export const AuthPage = () => {
                     <Button.Primary text='Jogar' />
                 </Form>
             </Box>
+            <ToastContainer />
         </Container>
     )
 }

@@ -1,16 +1,16 @@
 import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Container } from "../../components/general";
 import { RootState } from "../../store";
 import { setLoading } from "../../store/reducers/global";
 import { setUserData } from "../../store/reducers/user";
 
-import { storage } from "../../utils/storage"
-import { CardList } from "./components/cardList/index";
-import { Text, Title } from "./styles"
+import { storage } from "../../utils/storage";
 
-export const HomePage = () => {
+import { Container } from "../../components/general";
+import { Box, PokedexList, PokedexItem } from "./styles";
+
+export const PokedexPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
@@ -20,8 +20,6 @@ export const HomePage = () => {
         if (!userData) navigate('/entrar');
 
         dispatch(setUserData(userData));
-
-        console.log('User Data:', user);
     }
 
     useEffect(() => {
@@ -32,10 +30,11 @@ export const HomePage = () => {
     return (
         <>
             <Container>
-                <Text>Olá,</Text>
-                <Title>{user.name}</Title>
-
-                <CardList />
+                <PokedexList>
+                    <PokedexItem>
+                        
+                    </PokedexItem>
+                </PokedexList>
             </Container>
         </>
     );

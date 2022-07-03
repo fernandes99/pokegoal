@@ -4,5 +4,10 @@ export type UserStateType = {
     items: {
         pokeballs: Number,
     },
-    pokedex: Array<String>
+    pokedex: [
+        {
+            id: Number,
+            name: String
+        }
+    ]
 };

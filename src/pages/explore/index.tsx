@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { addPokemonInPokedex, setUserData } from "../../store/reducers/user";
+
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 import { capitalize, randomIntFromInterval } from "../../utils/general"
 import { requests } from "../../utils/requests"
+import { storage } from "../../utils/storage";
 
 import { Button } from "../../components/button"
 import { Container, Spinner } from "../../components/general"
@@ -15,12 +20,22 @@ import { PokeballSVG } from "../../components/pokeball/pokeball"
 
 export const ExplorePage = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const user = useSelector((state: RootState) => state.user);
     const [ pokemon, setPokemon ] = useState<any>(null);
     const [ exploring, setExploring ] = useState<boolean>(true);
     const [ catching, setCatching ] = useState<boolean>(false);
     const [ catched, setCatched ] = useState<boolean>(false);
+    const [ callbackCatched, setCallbackCatched ] = useState<boolean>(false);
 
     let timer: any;
+
+    const getUser = async () => {
+        const userData = storage.get('user');
+        if (!userData) navigate('/entrar');
+
+        dispatch(setUserData(userData));
+    }
 
     const findPokemon = () => {
         setExploring(true);
@@ -51,27 +66,40 @@ export const ExplorePage = () => {
 
         console.log('Rate:', rate);
 
-        setCatched(rate >= random);
+        setCatched(rate >= random || true);
     }
 
     const callbackCatch = () => {
         const toastOptions:any = {
-            position: "bottom-center",
+            position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
+            style: { top: 20, margin: '0 20px' }
         };
 
-        if (catched) toast.success(`Parabéns você conseguiu capturar um ${pokemon?.name}`, toastOptions);
+        if (catched) {
+            const pokedexData = { name: pokemon?.name, id: pokemon?.id };
+            const userData = storage.get('user');
+
+            toast.success(`Parabéns você conseguiu capturar um ${pokemon?.name}`, toastOptions);
+            setCallbackCatched(true);
+
+            userData.pokedex.push(pokedexData);
+            storage.set('user', userData);
+
+            dispatch(setUserData(userData));
+        }
         else toast.error(`Pokemon escapou! Tente novamente.`, toastOptions);
 
         setCatching(false);
     }
 
     useEffect(() => {
+        getUser();
         findPokemon();
     }, [])
 
@@ -84,23 +112,23 @@ export const ExplorePage = () => {
                 </ExploringBox>
                 :
                 <Box>
-                    { pokemon ? (
-                            <PokemonBox>
-                                { catching &&
-                                    <CatchingBox>
-                                        <PokeballSVG success={catched} callback={() => callbackCatch()}/>
-                                    </CatchingBox>
-                                }
-                                <PokemonContainer data={pokemon}/>
-                            </PokemonBox>
-                        ) : null }
+                    { pokemon && (
+                        <PokemonBox>
+                            { catching &&
+                                <CatchingBox>
+                                    <PokeballSVG success={catched} callback={() => callbackCatch()}/>
+                                </CatchingBox>
+                            }
+                            <PokemonContainer data={pokemon}/>
+                        </PokemonBox>
+                    )}
 
                     <Content style={catching ? { opacity: .5, pointerEvents: 'none' } : {}}>
                         <Title>Você encontrou um <strong>{pokemon?.name}</strong>.</Title>
                         <Text>O que deseja fazer?</Text>
 
                         <Actions>
-                            <Button.Default onClick={() => navigate('/')} text="Correr" />
+                            <Button.Default onClick={() => navigate('/')} text="Fugir" />
                             <Button.Default onClick={() => findPokemon()} text="Encontrar outro" />
                             <Button.Primary onClick={() => catchPokemon()} text="Jogar pokebola" />
                         </Actions>

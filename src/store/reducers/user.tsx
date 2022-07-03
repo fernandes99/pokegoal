@@ -1,27 +1,37 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { UserStateType } from "../types";
 
 const user = createSlice({
     name: 'user',
     initialState: {
-        id: 0 as Number,
-        name: '' as String,
+        id: 0,
+        name: '',
         items: {
-            pokeballs: 0 as Number,
+            pokeballs: 0,
         },
-        pokedex: [] as Array<String>
-    },
+        pokedex: [{
+            id: 0,
+            name: ''
+        }]
+    } as UserStateType,
     reducers: {
-        setUserName (state: any, action: any) {
+        setUserData (state: UserStateType, action: any) {
+            Object.assign(state, action.payload)
+        },
+        setUserName (state: UserStateType, action: any) {
             state.name = action.payload;
         },
-        setUserId (state: any, action: any) {
+        setUserId (state: UserStateType, action: any) {
             state.id = action.payload;
         },
-        setUserPokeballs (state: any, action: any) {
+        setUserPokeballs (state: UserStateType, action: any) {
             state.items.pokeballs = action.payload;
+        },
+        addPokemonInPokedex (state: UserStateType, action: any) {
+            state.pokedex.push(action.payload);
         }
     }
 })
 
-export const { setUserName, setUserId, setUserPokeballs } = user.actions;
+export const { setUserData, setUserName, setUserId, setUserPokeballs, addPokemonInPokedex } = user.actions;
 export default user.reducer;
