@@ -66,7 +66,7 @@ export const ExplorePage = () => {
 
         console.log('Rate:', rate);
 
-        setCatched(rate >= random || true);
+        setCatched(rate >= random);
     }
 
     const callbackCatch = () => {
