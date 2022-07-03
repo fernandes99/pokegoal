@@ -16,7 +16,7 @@ export const Title = styled.h2`
     font-weight: bold;
 
     strong {
-        color: ${props => props.color};
+        color: var(--purple);
     }
     
 `

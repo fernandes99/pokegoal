@@ -21,7 +21,7 @@ export const PokemonContainer: React.FC<any> = (props: any) => {
             <PkmImage color={pokemon.color} src={pokemonImage} alt={pokemon.name} />
 
             <Info>
-                <Title color={pokemon.color}>{pokemon.name}</Title>
+                <Title>{pokemon.name}</Title>
                 <Tags>
                     {pokemon.types.map((item: any, index: number) => {
                         const name = item.type.name;
