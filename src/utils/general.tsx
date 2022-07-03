@@ -12,6 +12,10 @@ export const getRandomValue = () => {
     return window.crypto.getRandomValues(array)[0];
 }
 
+export const randomIntFromInterval = (min: number, max: number) => {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
 export const capitalize = (value: string, lower = false) => {
   return (lower ? value.toLowerCase() : value).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase())
 }

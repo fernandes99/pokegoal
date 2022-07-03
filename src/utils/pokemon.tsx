@@ -31,3 +31,7 @@ export const pkmColors: any = {
     pink: '#f890c8',
     yellow: '#f0d048'
 };
+
+export const rateInPercentage = (rate: number) => {
+	return parseFloat(((100 * rate) / 255).toFixed(2));
+} 

@@ -44,3 +44,11 @@ export const ExploringBox = styled.div`
         font-size: 24px;
     }
 `
+
+export const CatchingBox = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+`

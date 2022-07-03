@@ -7,7 +7,8 @@ const user = createSlice({
         name: '' as String,
         items: {
             pokeballs: 0 as Number,
-        }
+        },
+        pokedex: [] as Array<String>
     },
     reducers: {
         setUserName (state: any, action: any) {
