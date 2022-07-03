@@ -46,9 +46,29 @@ export const ExploringBox = styled.div`
 `
 
 export const CatchingBox = styled.div`
+    position: absolute;
+    height: 100%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    height: 100%;
+    background: transparent;
+    transform: scale(0);
+    animation: opening 0.5s 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+
+    @keyframes opening {
+        to {
+            background: radial-gradient(white, transparent);
+            transform: scale(1);
+        }
+    }
+`
+
+export const PokemonBox = styled.div`
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -20px;
+    flex: 1;
 `

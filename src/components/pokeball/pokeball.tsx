@@ -8,15 +8,17 @@ export const PokeballSVG:React.FC<PokeballProps> = (props: PokeballProps) => {
     useEffect(() => {
         const pokeball = document.querySelector('svg') as any;
 
-        pokeball.setAttribute('class', 'fetching');
+        setTimeout(() => {
+            pokeball.setAttribute('class', 'fetching');
+        }, 1200);
 
         setTimeout(() => {
             pokeball.setAttribute('class', props.success ? 'success' : 'failure');
-        }, 3000);
+        }, 4200);
 
         setTimeout(() => {
             props.callback();
-        }, 4500)
+        }, 5700)
     }, [])
 
     return (

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 import { capitalize, randomIntFromInterval } from "../../utils/general"
 import { requests } from "../../utils/requests"
@@ -7,10 +9,9 @@ import { requests } from "../../utils/requests"
 import { Button } from "../../components/button"
 import { Container, Spinner } from "../../components/general"
 import { PokemonContainer } from "./components/pokemon"
-import { Actions, Box, Text, Title, Content, ExploringBox, CatchingBox } from "./styles"
+import { Actions, Box, Text, Title, Content, ExploringBox, CatchingBox, PokemonBox } from "./styles"
 import { pkmColors, rateInPercentage } from "../../utils/pokemon"
 import { PokeballSVG } from "../../components/pokeball/pokeball"
-import { message } from "antd"
 
 export const ExplorePage = () => {
     const navigate = useNavigate();
@@ -48,11 +49,25 @@ export const ExplorePage = () => {
         const rate = rateInPercentage(pokemon.specie.capture_rate);
         const random = randomIntFromInterval(0, 100);
 
-        setCatched(random > rate);
+        console.log('Rate:', rate);
+
+        setCatched(rate >= random);
     }
 
     const callbackCatch = () => {
-        message.success(`Parabéns você conseguiu capturar um ${pokemon?.name}`);
+        const toastOptions:any = {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        };
+
+        if (catched) toast.success(`Parabéns você conseguiu capturar um ${pokemon?.name}`, toastOptions);
+        else toast.error(`Pokemon escapou! Tente novamente.`, toastOptions);
+
         setCatching(false);
     }
 
@@ -62,32 +77,37 @@ export const ExplorePage = () => {
 
     return (
         <Container>
-            { catching ?
-                <CatchingBox>
-                    <PokeballSVG success={catched} callback={() => callbackCatch()}/>
-                </CatchingBox>
-                : ( exploring ?
-                    <ExploringBox>
-                        <Spinner />
-                        <Title>Explorando</Title>
-                    </ExploringBox>
-                    :
-                    <Box>
-                        { pokemon ? <PokemonContainer data={pokemon}/> : null }
+            { exploring ?
+                <ExploringBox>
+                    <Spinner />
+                    <Title>Explorando</Title>
+                </ExploringBox>
+                :
+                <Box>
+                    { pokemon ? (
+                            <PokemonBox>
+                                { catching &&
+                                    <CatchingBox>
+                                        <PokeballSVG success={catched} callback={() => callbackCatch()}/>
+                                    </CatchingBox>
+                                }
+                                <PokemonContainer data={pokemon}/>
+                            </PokemonBox>
+                        ) : null }
 
-                        <Content>
-                            <Title>Você encontrou um <strong>{pokemon?.name}</strong>.</Title>
-                            <Text>O que deseja fazer?</Text>
+                    <Content style={catching ? { opacity: .5, pointerEvents: 'none' } : {}}>
+                        <Title>Você encontrou um <strong>{pokemon?.name}</strong>.</Title>
+                        <Text>O que deseja fazer?</Text>
 
-                            <Actions>
-                                <Button.Default onClick={() => navigate('/')} text="Correr" />
-                                <Button.Default onClick={() => findPokemon()} text="Encontrar outro" />
-                                <Button.Primary onClick={() => catchPokemon()} text="Jogar pokebola" />
-                            </Actions>
-                        </Content>
-                    </Box>
-                )
+                        <Actions>
+                            <Button.Default onClick={() => navigate('/')} text="Correr" />
+                            <Button.Default onClick={() => findPokemon()} text="Encontrar outro" />
+                            <Button.Primary onClick={() => catchPokemon()} text="Jogar pokebola" />
+                        </Actions>
+                    </Content>
+                </Box>
             }
+            <ToastContainer />
         </Container>
     )
 }
