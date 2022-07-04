@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom"
-import { Item, List } from "./styles"
+import { CardItem, List } from "./styles"
 
 export const CardList = () => {
     const Card = (props: any) => {
         return (
-            <Item style={{ 'background': props.color }}>
+            <CardItem style={{ 'background': props.color }}>
                 <Link to={props.path}>
                     <div className="content">
                         <h3>{ props.title }</h3>
                     </div>
                 </Link>
-            </Item>
+            </CardItem>
         )
     }
 

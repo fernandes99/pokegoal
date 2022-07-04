@@ -2,9 +2,11 @@ import { configs } from "./configs";
 
 export const requests = {
     get: {
-        pokemon: async (name?: String) => {
-            if (name) {
-                return await fetch(`${configs.urls.pokeApi}/pokemon/${name}`, { mode: 'cors' })
+        pokemon: async (name?: String, id?: number) => {
+            const value = name || id;
+
+            if (value) {
+                return await fetch(`${configs.urls.pokeApi}/pokemon/${value}`, { mode: 'cors' })
                     .then(res => res.json());
             }
 

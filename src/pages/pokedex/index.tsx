@@ -8,14 +8,15 @@ import { setUserData } from "../../store/reducers/user";
 import { storage } from "../../utils/storage";
 
 import { Container } from "../../components/general";
-import { Box, PokedexList, PokedexItem } from "./styles";
+import { Title, CapituredBox } from "./styles";
+import { PokemonList } from "./components";
 
 export const PokedexPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
 
-    const getUser = async () => {
+    const getUser = () => {
         const userData = storage.get('user');
         if (!userData) navigate('/entrar');
 
@@ -30,11 +31,10 @@ export const PokedexPage = () => {
     return (
         <>
             <Container>
-                <PokedexList>
-                    <PokedexItem>
-                        
-                    </PokedexItem>
-                </PokedexList>
+                <CapituredBox>
+                    <Title>Capiturados:</Title>
+                    { user.pokedex.length > 1 && <PokemonList data={user.pokedex} /> }
+                </CapituredBox>
             </Container>
         </>
     );

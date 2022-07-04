@@ -7,7 +7,7 @@ export const List = styled.ul`
     gap: 8px;
 `
 
-export const Item = styled.li`
+export const CardItem = styled.li`
     border-radius: 12px;
 
     .content {

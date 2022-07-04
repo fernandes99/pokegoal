@@ -1,13 +1,10 @@
 import styled from 'styled-components';
 
-export const Box = styled.div`
+export const CapituredBox = styled.div`
   
 `
 
-export const PokedexList = styled.div`
-
-`
-
-export const PokedexItem = styled.div`
-
+export const Title = styled.h2`
+    font-size: 24px;
+    font-weight: bold;
 `

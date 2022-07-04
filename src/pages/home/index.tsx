@@ -21,7 +21,7 @@ export const HomePage = () => {
 
         dispatch(setUserData(userData));
 
-        console.log('User Data:', user);
+        console.log('User Data:', userData);
     }
 
     useEffect(() => {
