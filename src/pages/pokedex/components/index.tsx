@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
+import { BRType } from "../../../assets/settings/translate";
+import { Tag } from "../../../components/tag";
 import { capitalize } from "../../../utils/general";
-import { pkmColors } from "../../../utils/pokemon";
+import { pkmColors, pkmColorsType } from "../../../utils/pokemon";
 import { requests } from "../../../utils/requests";
-import { List, Item, Text } from "./styles"
+import { List, Item, Tags } from "./styles"
 
 export const PokemonList = (props: any) => {
     console.log(props.data);
     const [ pokemons, setPokemons ] = useState([]);
     let arrayPkms = [] as any;
 
-    const populated = async () => {
+    const populateList = async () => {
         props.data.forEach(async (item: any, index: number) => {
             const pokemon:any = await getPokemonInfo(item.id);
 
@@ -35,7 +37,7 @@ export const PokemonList = (props: any) => {
     }
 
     useEffect(() => {
-        populated();
+        populateList();
     }, [])
 
     useEffect(() => {
@@ -44,13 +46,24 @@ export const PokemonList = (props: any) => {
 
     return (
         <List>
-            { pokemons?.map((item: any, index: number) => {
-                if (!item.id) return null;
+            { pokemons?.map((pkm: any, index: number) => {
+                if (!pkm.id) return null;
+                const firstColorType = pkmColorsType[pkm.types[0].type.name];
 
                 return (
-                    <Item color={item.color} key={index}>
-                        <Text>{item.name}</Text>
-                        <img src={item.image} />
+                    <Item color={firstColorType} key={index}>
+                        <p>{pkm.name}</p>
+                        <Tags>
+                            {pkm.types.map((item: any, index: number) => {
+                                const name = item.type.name;
+                                const color = pkmColorsType[name];
+                                const BRName = BRType[name];
+
+                                return(<Tag fontSize="11px" text={BRName} color={color} filled={true} />)
+                            })}
+                        </Tags>
+                        <img src={pkm.image} />
+                        <div className="detail"></div>
                     </Item>
                 )
                 })}
