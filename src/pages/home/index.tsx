@@ -1,3 +1,4 @@
+import { equal } from "assert";
 import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -5,6 +6,7 @@ import { Container } from "../../components/general";
 import { RootState } from "../../store";
 import { setLoading } from "../../store/reducers/global";
 import { setUserData } from "../../store/reducers/user";
+import { UserStateType } from "../../store/types";
 
 import { storage } from "../../utils/storage"
 import { CardList } from "./components/cardList/index";
@@ -17,7 +19,8 @@ export const HomePage = () => {
 
     const getUser = async () => {
         const userData = storage.get('user');
-        if (!userData) navigate('/entrar');
+
+        if (!userData?.pokedex) navigate('/entrar');
 
         dispatch(setUserData(userData));
 
