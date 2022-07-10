@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { addPokemonInPokedex, setUserData } from "../../store/reducers/user";
+import { useDispatch } from "react-redux";
+import { setUserData } from "../../store/reducers/user";
 
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,7 +20,6 @@ import { PokeballSVG } from "../../components/pokeball/pokeball"
 export const ExplorePage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const user = useSelector((state: RootState) => state.user);
     const [ pokemon, setPokemon ] = useState<any>(null);
     const [ exploring, setExploring ] = useState<boolean>(true);
     const [ catching, setCatching ] = useState<boolean>(false);
@@ -45,13 +43,18 @@ export const ExplorePage = () => {
             const pkmFinded = await requests.get.pokemon();
             const pkmSpecie = await requests.get.specie(pkmFinded.species.name);
             const pkmColor = pkmColors[pkmSpecie.color.name];
+            const pkmSound = new Audio(`https://pokemoncries.com/cries/${pkmFinded.id}.mp3`);
 
             pkmFinded.name = capitalize(pkmFinded.name.replaceAll('-', ' '));
             pkmFinded.color = pkmColor;
             pkmFinded.specie = pkmSpecie;
+            pkmFinded.sound = pkmSound;
 
             console.log('Specie:', pkmSpecie);
             console.log('Pokemon:', pkmFinded);
+
+            pkmFinded.sound.volume = 0.2;
+            pkmFinded.sound.play();
 
             setPokemon(pkmFinded);
             setExploring(false);

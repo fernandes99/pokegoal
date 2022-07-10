@@ -1,8 +1,9 @@
+import { arrayBuffer } from "stream/consumers";
 import { configs } from "./configs";
 
 export const requests = {
     get: {
-        pokemon: async (name?: String, id?: number) => {
+        pokemon: async (name?: string, id?: number) => {
             const value = name || id;
 
             if (value) {
@@ -22,9 +23,9 @@ export const requests = {
             return pkmRandom;
         },
 
-        specie: async (name: String) => {
+        specie: async (name: string) => {
             return await fetch(`${configs.urls.pokeApi}/pokemon-species/${name}`, { mode: 'cors' })
                     .then(res => res.json());
-        }
+        },
     },
 }
