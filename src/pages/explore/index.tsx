@@ -50,6 +50,7 @@ export const ExplorePage = () => {
             pkmFinded.color = pkmColor;
             pkmFinded.specie = pkmSpecie;
             pkmFinded.sound = pkmSound;
+            pkmFinded.hp = pkmFinded.stats.find((item: any) => item.stat.name === "hp").base_stat;
 
             console.log('Specie:', pkmSpecie);
             console.log('Pokemon:', pkmFinded);
@@ -139,6 +140,7 @@ export const ExplorePage = () => {
                         <Actions>
                             <Button.Default onClick={() => navigate('/')} text="Fugir" />
                             <Button.Default onClick={() => findPokemon()} text="Encontrar outro" />
+                            <Button.Primary color="#dd6054" onClick={() => {}} text="Atacar" />
                             <Button.Primary onClick={() => catchPokemon()} text="Jogar pokebola" />
                         </Actions>
                     </Content>

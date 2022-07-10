@@ -5,6 +5,7 @@ export const Box = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 16px;
 `
 
 export const PkmImage = styled.img`
@@ -14,6 +15,7 @@ export const PkmImage = styled.img`
 `
 
 export const Info = styled.div`
+    margin-top: 8px;
     display: grid;
     gap: 4px;
 `

@@ -4,7 +4,7 @@ import { ButtonType, PrimaryButtonType, DefaultButtonType } from "./types";
 export const Button: ButtonType = {
     Primary: (props: PrimaryButtonType) => {
         return (
-            <PrimaryButton onClick={props.onClick}>{props.text}</PrimaryButton>
+            <PrimaryButton color={props.color} onClick={props.onClick}>{props.text}</PrimaryButton>
         )
     },
     Default: (props: DefaultButtonType) => {

@@ -1,11 +1,11 @@
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { setLoading } from "../../../../store/reducers/global"
-import { PokemonPropsType } from "./types"
 
 import { Tag } from "../../../../components/tag"
 import { Box, Title, Info, PkmImage, Tags } from "./styles"
 import { pkmColorsType } from "../../../../utils/pokemon"
+import { Life } from "../life"
 
 export const PokemonContainer: React.FC<any> = (props: any) => {
     const dispatch = useDispatch();
@@ -19,6 +19,8 @@ export const PokemonContainer: React.FC<any> = (props: any) => {
     return (
         <Box>
             <PkmImage color={pokemon.color} src={pokemonImage} alt={pokemon.name} />
+
+            <Life value={100} />
 
             <Info>
                 <Title>{pokemon.name}</Title>

@@ -2,6 +2,7 @@ export type PrimaryButtonType = {
     text: string;
     icon?: boolean;
     type?: string;
+    color?: string;
     onClick?: void | any;
 };
 

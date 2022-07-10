@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const PrimaryButton = styled.button`
-    background-color: var(--blue);
+    background-color: ${props => props.color ? props.color : 'var(--blue)'};
     height: 48px;
     border-radius: 12px;
     color: var(--white);
