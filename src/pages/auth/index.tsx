@@ -12,7 +12,7 @@ import { getRandomValue } from "../../utils/general";
 import { Container, Spinner } from "../../components/general"
 import { Box, Title, Text, Input, Form } from "./styles"
 import { RootState } from "../../store";
-import { setUserId, setUserName, setUserPokeballs } from "../../store/reducers/user";
+import { removeFirstItemPokedex, resetUserData, setUserData, setUserId, setUserName, setUserPokeballs } from "../../store/reducers/user";
 import { setLoading } from "../../store/reducers/global";
 import { Button } from "../../components/button";
 
@@ -58,10 +58,12 @@ export const AuthPage = () => {
         
         dispatch(setUserId(id));
         dispatch(setUserPokeballs(10));
+        dispatch(removeFirstItemPokedex(null));
 
         storage.set('user', user);
         navigate('/');
     }
+
 
     useEffect(() => {
         fetchPokemonHome();

@@ -6,10 +6,9 @@ import { Container } from "../../components/general";
 import { RootState } from "../../store";
 import { setLoading } from "../../store/reducers/global";
 import { setUserData } from "../../store/reducers/user";
-import { UserStateType } from "../../store/types";
 
 import { storage } from "../../utils/storage"
-import { CardList } from "./components/cardList/index";
+import { Menu } from "./components/menu/index";
 import { Text, Title } from "./styles"
 
 export const HomePage = () => {
@@ -19,11 +18,7 @@ export const HomePage = () => {
 
     const getUser = async () => {
         const userData = storage.get('user');
-
-        if (!userData?.pokedex) navigate('/entrar');
-
         dispatch(setUserData(userData));
-
         console.log('User Data:', userData);
     }
 
@@ -37,8 +32,7 @@ export const HomePage = () => {
             <Container>
                 <Text>Olá,</Text>
                 <Title>{user.name}</Title>
-
-                <CardList />
+                <Menu />
             </Container>
         </>
     );

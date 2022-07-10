@@ -9,10 +9,7 @@ const user = createSlice({
         items: {
             pokeballs: 0,
         },
-        pokedex: [{
-            id: 0,
-            name: ''
-        }]
+        pokedex: []
     } as UserStateType,
     reducers: {
         setUserData (state: UserStateType, action: any) {
@@ -27,11 +24,17 @@ const user = createSlice({
         setUserPokeballs (state: UserStateType, action: any) {
             state.items.pokeballs = action.payload;
         },
+        removeFirstItemPokedex (state: UserStateType, action: any) {
+            state.pokedex?.shift();
+        },
         addPokemonInPokedex (state: UserStateType, action: any) {
-            state.pokedex.push(action.payload);
-        }
+            state.pokedex?.push(action.payload);
+        },
+        resetUserData (state: UserStateType, action: any) {
+            state = action.payload;
+        },
     }
 })
 
-export const { setUserData, setUserName, setUserId, setUserPokeballs, addPokemonInPokedex } = user.actions;
+export const { setUserData, setUserName, setUserId, setUserPokeballs, addPokemonInPokedex, resetUserData, removeFirstItemPokedex } = user.actions;
 export default user.reducer;

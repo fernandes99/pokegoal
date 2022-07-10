@@ -24,6 +24,7 @@ export const PokedexPage = () => {
     }
 
     useEffect(() => {
+        dispatch(setLoading(true));
         getUser();
         dispatch(setLoading(false));
     }, []);
@@ -32,8 +33,8 @@ export const PokedexPage = () => {
         <>
             <Container>
                 <CapituredBox>
-                    <Title>Capiturados:</Title>
-                    { user.pokedex.length > 1 && <PokemonList data={user.pokedex} /> }
+                    <Title>Capturados:</Title>
+                    { user.pokedex && <PokemonList data={user.pokedex} /> }
                 </CapituredBox>
             </Container>
         </>

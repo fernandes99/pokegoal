@@ -7,11 +7,10 @@ import { requests } from "../../../utils/requests";
 import { List, Item, Tags } from "./styles"
 
 export const PokemonList = (props: any) => {
-    console.log(props.data);
     const [ pokemons, setPokemons ] = useState([]);
     let arrayPkms = [] as any;
 
-    const populateList = async () => {
+    const populateList = () => {
         props.data.forEach(async (item: any, index: number) => {
             const pokemon:any = await getPokemonInfo(item.id);
 
@@ -38,11 +37,8 @@ export const PokemonList = (props: any) => {
 
     useEffect(() => {
         populateList();
+        console.log('Pokemons:', props.data)
     }, [])
-
-    useEffect(() => {
-        console.log(pokemons)
-    }, [pokemons])
 
     return (
         <List>
@@ -59,7 +55,7 @@ export const PokemonList = (props: any) => {
                                 const color = pkmColorsType[name];
                                 const BRName = BRType[name];
 
-                                return(<Tag fontSize="11px" text={BRName} color={color} filled={true} />)
+                                return(<Tag fontSize="10px" text={BRName} color={color} filled={true} key={item} />)
                             })}
                         </Tags>
                         <img src={pkm.image} />
