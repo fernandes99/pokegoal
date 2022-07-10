@@ -18,10 +18,7 @@ export const PokemonContainer: React.FC<any> = (props: any) => {
     let current = pokemon.hp;
 
     useEffect(() => {
-        document.addEventListener('pkm-hit', (event: any) => {
-            current = current - event.detail.damage;
-            setCurrentLife(current);
-        });
+        document.addEventListener('pkm-hit', (event: any) => setCurrentLife(event.detail.currentLife));
 
         dispatch(setLoading(false));
     }, []);

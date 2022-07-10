@@ -7,7 +7,7 @@ import pokeballWobble from "../../assets/sounds/pokeballWobble.mp3";
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
-import { capitalize, randomIntFromInterval } from "../../utils/general"
+import { capitalize, getPercentage, randomIntFromInterval } from "../../utils/general"
 import { requests } from "../../utils/requests"
 import { storage } from "../../utils/storage";
 
@@ -17,6 +17,7 @@ import { PokemonContainer } from "./components/pokemon"
 import { Actions, Box, Text, Title, Content, ExploringBox, CatchingBox, PokemonBox } from "./styles"
 import { pkmColors, rateInPercentage } from "../../utils/pokemon"
 import { PokeballSVG } from "../../components/pokeball/pokeball"
+import { setLoading } from "../../store/reducers/global";
 
 export const ExplorePage = () => {
     const navigate = useNavigate();
@@ -25,7 +26,21 @@ export const ExplorePage = () => {
     const [ exploring, setExploring ] = useState<boolean>(true);
     const [ catching, setCatching ] = useState<boolean>(false);
     const [ catched, setCatched ] = useState<boolean>(false);
+    const [ pkmRate, setPkmRate ] = useState<any>();
+    const [ currentLife, setCurrentLife ] = useState<number>(0);
     const [ callbackCatched, setCallbackCatched ] = useState<boolean>(false);
+
+    const toastOptions:any = {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: { top: 20, margin: '0 20px' }
+    };
+
 
     let timer: any;
 
@@ -52,6 +67,7 @@ export const ExplorePage = () => {
             pkmFinded.color = pkmColor;
             pkmFinded.specie = pkmSpecie;
             pkmFinded.sound = pkmSound;
+            pkmFinded.rate = rateInPercentage(pkmFinded.specie.capture_rate);
             pkmFinded.hp = pkmFinded.stats.find((item: any) => item.stat.name === "hp").base_stat;
 
             console.log('Specie:', pkmSpecie);
@@ -60,6 +76,8 @@ export const ExplorePage = () => {
             pkmFinded.sound.volume = 0.2;
             pkmFinded.sound.play();
 
+            setCurrentLife(pkmFinded.hp);
+            setPkmRate(pkmFinded.rate);
             setPokemon(pkmFinded);
             setExploring(false);
         }, 1500);
@@ -67,10 +85,31 @@ export const ExplorePage = () => {
 
     const hitPokemon = () => {
         const damage = randomIntFromInterval(2, 30);
-        const event = new CustomEvent('pkm-hit', { detail: { damage: damage }});
+        const current = currentLife - damage;
 
+        setCurrentLife(current);
+        
+        const event = new CustomEvent('pkm-hit', { detail: { currentLife: current }});
         document.dispatchEvent(event);
+
+        if (current <= 0) {
+            toast.success(`Você derrotou ${pokemon?.name}`, toastOptions);
+            dispatch(setLoading(true));
+
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);
+        }
     }
+
+    useEffect(() => {
+        if (!currentLife || !pokemon) return;
+
+        const percentage = getPercentage(currentLife, pokemon.hp);
+
+        if (percentage <= 50) return setPkmRate(pkmRate + pkmRate / 2);
+        if (percentage <= 20) return setPkmRate(pkmRate + pkmRate);
+    }, [currentLife])
 
     const catchPokemon = () => {
         const pkbSound = new Audio(pokeballWobble);
@@ -80,7 +119,7 @@ export const ExplorePage = () => {
 
         setCatching(true);
 
-        const rate = rateInPercentage(pokemon.specie.capture_rate);
+        const rate = rateInPercentage(pkmRate);
         const random = randomIntFromInterval(0, 100);
 
         console.log('Rate:', rate);
@@ -89,18 +128,9 @@ export const ExplorePage = () => {
     }
 
     const callbackCatch = () => {
-        const toastOptions:any = {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            style: { top: 20, margin: '0 20px' }
-        };
-
         if (catched) {
+            dispatch(setLoading(true));
+
             const pokedexData = { name: pokemon?.name, id: pokemon?.id };
             const userData = storage.get('user');
 
@@ -111,6 +141,11 @@ export const ExplorePage = () => {
             storage.set('user', userData);
 
             dispatch(setUserData(userData));
+
+            setTimeout(() => {
+                dispatch(setLoading(false));
+                findPokemon();
+            }, 2000);
         }
         else toast.error(`Pokemon escapou! Tente novamente.`, toastOptions);
 
