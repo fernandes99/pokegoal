@@ -1,3 +1,5 @@
 export type PropsLifeType = {
-    value: number
+    full: number,
+    current: number,
+    percentage: number
 };

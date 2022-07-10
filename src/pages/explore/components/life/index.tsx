@@ -1,10 +1,12 @@
 import React from "react";
-import { LifeBar } from "./styles"
+import { LifeBar, LifeBox, Text } from "./styles"
+import { PropsLifeType } from "./types";
 
-export const Life: React.FC<any> = (props: any) => {
+export const Life: React.FC<PropsLifeType> = (props: PropsLifeType) => {
     return (
-        <>
-            <LifeBar value={props.value} />
-        </>
+        <LifeBox>
+            <LifeBar full={props.full} current={props.current} percentage={props.percentage} />
+            <Text>{props.current}/{props.full}</Text>
+        </LifeBox>
     );
 }

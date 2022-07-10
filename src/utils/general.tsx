@@ -19,3 +19,10 @@ export const randomIntFromInterval = (min: number, max: number) => {
 export const capitalize = (value: string, lower = false) => {
   return (lower ? value.toLowerCase() : value).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase())
 }
+
+export const getPercentage = (current: any, total: any) => {
+    const result = parseFloat(Math.round((current / total) * 100).toFixed(2));
+    console.log(result);
+
+    return result;
+}
