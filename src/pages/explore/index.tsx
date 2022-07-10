@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../store/reducers/user";
+import pokeballWobble from "../../assets/sounds/pokeballWobble.mp3";
 
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
@@ -62,6 +63,11 @@ export const ExplorePage = () => {
     }
 
     const catchPokemon = () => {
+        const pkbSound = new Audio(pokeballWobble);
+
+        pkbSound.playbackRate = 1.5;
+        pkbSound.play();
+
         setCatching(true);
 
         const rate = rateInPercentage(pokemon.specie.capture_rate);
