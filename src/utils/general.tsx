@@ -22,7 +22,6 @@ export const capitalize = (value: string, lower = false) => {
 
 export const getPercentage = (current: any, total: any) => {
     const result = parseFloat(Math.round((current / total) * 100).toFixed(2));
-    console.log(result);
 
     return result;
 }

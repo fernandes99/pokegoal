@@ -37,6 +37,8 @@ export const ExplorePage = () => {
     }
 
     const findPokemon = () => {
+        // WIP: Inserir estado para o pokemon atual de vez de usar props (para retirar o uso de trigger eventos de dano ataque);
+
         setExploring(true);
         clearTimeout(timer);
 
@@ -61,6 +63,13 @@ export const ExplorePage = () => {
             setPokemon(pkmFinded);
             setExploring(false);
         }, 1500);
+    }
+
+    const hitPokemon = () => {
+        const damage = randomIntFromInterval(2, 30);
+        const event = new CustomEvent('pkm-hit', { detail: { damage: damage }});
+
+        document.dispatchEvent(event);
     }
 
     const catchPokemon = () => {
@@ -140,7 +149,7 @@ export const ExplorePage = () => {
                         <Actions>
                             <Button.Default onClick={() => navigate('/')} text="Fugir" />
                             <Button.Default onClick={() => findPokemon()} text="Encontrar outro" />
-                            <Button.Primary color="#dd6054" onClick={() => {}} text="Atacar" />
+                            <Button.Primary color="#dd6054" onClick={() => hitPokemon()} text="Atacar" />
                             <Button.Primary onClick={() => catchPokemon()} text="Jogar pokebola" />
                         </Actions>
                     </Content>
