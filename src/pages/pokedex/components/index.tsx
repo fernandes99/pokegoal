@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BRType } from "../../../assets/settings/translate";
 import { Tag } from "../../../components/tag";
 import { capitalize } from "../../../utils/general";
-import { pkmColors, pkmColorsType } from "../../../utils/pokemon";
+import { pkmColors, pkmColorsType, playSoundPkm } from "../../../utils/pokemon";
 import { requests } from "../../../utils/requests";
 import { List, Item, Tags } from "./styles"
 
@@ -47,7 +47,7 @@ export const PokemonList = (props: any) => {
                 const firstColorType = pkmColorsType[pkm.types[0].type.name];
 
                 return (
-                    <Item color={firstColorType} key={index}>
+                    <Item onClick={() => playSoundPkm(pkm.id)} color={firstColorType} key={index}>
                         <p>{pkm.name}</p>
                         <Tags>
                             {pkm.types.map((item: any, index: number) => {
@@ -55,7 +55,7 @@ export const PokemonList = (props: any) => {
                                 const color = pkmColorsType[name];
                                 const BRName = BRType[name];
 
-                                return(<Tag fontSize="10px" text={BRName} color={color} filled={true} key={item} />)
+                                return(<Tag fontSize="10px" text={BRName} color={color} filled={true} key={index} />)
                             })}
                         </Tags>
                         <img src={pkm.image} />

@@ -106,9 +106,12 @@ export const ExplorePage = () => {
         if (!currentLife || !pokemon) return;
 
         const percentage = getPercentage(currentLife, pokemon.hp);
-
-        if (percentage <= 50) return setPkmRate(pkmRate + pkmRate / 2);
+        
+        if (percentage <= 5) return setPkmRate(pkmRate + pkmRate * 2);
         if (percentage <= 20) return setPkmRate(pkmRate + pkmRate);
+        if (percentage <= 50) return setPkmRate(pkmRate + pkmRate / 2);
+        if (percentage <= 90) return setPkmRate(pkmRate + pkmRate / 5);
+
     }, [currentLife])
 
     const catchPokemon = () => {

@@ -34,4 +34,11 @@ export const pkmColors: any = {
 
 export const rateInPercentage = (rate: number) => {
 	return parseFloat(((100 * rate) / 255).toFixed(2));
-} 
+}
+
+export const playSoundPkm = (id: number) => {
+	const sound = new Audio(`https://pokemoncries.com/cries/${id}.mp3`);
+
+	sound.volume = 0.2;
+	sound.play();
+}

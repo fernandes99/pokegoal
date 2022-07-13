@@ -7,6 +7,19 @@ export const Container = styled.div`
   height: 100%;
   max-width: 420px;
   margin: 0 auto;
+  overflow: auto;
+  padding-right: 8px;
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: var(--gray-light);
+      border-right: 5px solid transparent;
+  }
 `
 
 export const Input = styled.input`
